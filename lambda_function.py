@@ -2,7 +2,16 @@ import boto3
 import os
 
 def lambda_function(event: any, context: any):
-    user = event["user"]
+    i = (event)
+    user = ''
+    if 'user' in event:
+        user = event['user']
+    else:
+        return {
+            'statusCode': 400,
+            'body': json.dumps('Bad Request: No body in the event'),
+            'value': i
+        }
     visit_count = 0
 
     #Create dynamobd client
